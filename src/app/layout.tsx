@@ -6,7 +6,7 @@ import { ShoppingBag, Search, User, Heart } from "lucide-react";
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
 
 export const metadata: Metadata = {
-    title: "Eloc Shop - Trang Sức & Thời Trang",
+    title: "cửa hàng thương mại điện tử DienMayLoc",
     description: "Trang thương mại điện tử mua sắm hiện đại",
 };
 
@@ -23,7 +23,7 @@ export default function RootLayout({
                     <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                         {/* Logo */}
                         <div className="text-2xl font-bold text-primary tracking-wider cursor-pointer">
-                            ELOC<span className="text-amber-500">.</span>
+                            DienMayLoc<span className="text-amber-500">.</span>
                         </div>
 
                         {/* Thanh tìm kiếm */}
