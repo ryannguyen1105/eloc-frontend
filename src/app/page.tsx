@@ -4,33 +4,33 @@ import { ArrowRight, Star } from "lucide-react";
 const MOCK_PRODUCTS = [
     {
         id: 1,
-        name: "Áo Khoác Bomber Nhung Tăm Unisex",
-        price: "450.000đ",
-        oldPrice: "600.000đ",
+        name: "empty",
+        price: "emptyđ",
+        oldPrice: "emptyđ",
         image: "https://unsplash.com",
         rating: 5
     },
     {
         id: 2,
-        name: "Giày Sneaker Thể Thao Bản Giới Hạn",
-        price: "1.200.000đ",
-        oldPrice: "1.500.000đ",
+        name: "empty",
+        price: "emptyđ",
+        oldPrice: "emptyđ",
         image: "https://unsplash.com",
         rating: 4
     },
     {
         id: 3,
-        name: "Balo Đi Học Chống Nước Phối Màu",
-        price: "320.000đ",
-        oldPrice: "320.000đ",
+        name: "empty",
+        price: "emptyđ",
+        oldPrice: "emptyđ",
         image: "https://unsplash.com",
         rating: 5
     },
     {
         id: 4,
-        name: "Mũ Lưỡi Trai Cotton Thêu Chữ Nổi",
-        price: "150.000đ",
-        oldPrice: "220.000đ",
+        name: "empty",
+        price: "emptyđ",
+        oldPrice: "emptyđ",
         image: "https://unsplash.com",
         rating: 4
     }
