@@ -1,26 +1,43 @@
 import { useEffect, useState } from "react";
-import agent from "../../api/agent";
 import type { Product } from "../models/product";
-import { Container } from "@mui/material";
-import Catalog from "../../features/catalog/Catalog";
+import { Box, Pagination, Typography } from "@mui/material";
+import agent from "../../api/agent";
+import ProductList from "../../pages/products/ProductListPage";
 
-function App() {
+export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState(1);
+  const pageSize = 5; // Phù hợp với ràng buộc min=5 của backend
 
   useEffect(() => {
-    agent.Catalog.list(1, 5)
-      .then((data) => {
-        console.log("data go", data);
-        setProducts(Array.isArray(data) ? data : [data]);
+    agent.Catalog.list(page, pageSize)
+      .then((data: Product[]) => {
+        setProducts(data);
       })
-      .catch((error) => console.error("error call API:", error));
-  }, []);
+      .catch((error: unknown) => {
+        console.error("Lỗi tải danh sách sản phẩm:", error);
+      });
+  }, [page]);
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
-    <Container maxWidth="xl" sx={{mt: 14}}>
-      <Catalog products={products}/>
-    </Container>
+    <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+      <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+        Danh sách mặt hàng
+      </Typography>
+
+      <ProductList products={products} />
+
+      <Pagination 
+        count={5} 
+        page={page} 
+        onChange={handlePageChange} 
+        color="primary" 
+        size="large"
+      />
+    </Box>
   );
 }
-
-export default App;
