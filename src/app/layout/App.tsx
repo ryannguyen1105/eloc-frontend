@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-import agent from "../../api/agent";
-import type { Product } from "../models/product";
-import Catalog from "../../features/catalog/Catalog";
+import { useState } from "react";
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavBar from "./NavBar";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
-
   const [darkMode, setDarkMode] = useState(true)
 
   const handleThemeChange = () => {
@@ -23,14 +19,6 @@ function App() {
       },
     },
   });
-  useEffect(() => {
-    agent.Catalog.list(1, 5)
-      .then((data) => {
-        console.log("data Go:", data);
-        setProducts(Array.isArray(data) ? data : [data]);
-      })
-      .catch((error) => console.error("error call API:", error));
-  }, []);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -46,7 +34,7 @@ function App() {
         }}
       >
         <Container maxWidth="xl" sx={{ mt: 14 }}>
-          <Catalog products={products} />
+          <Outlet />
         </Container>
       </Box>
     </ThemeProvider>
