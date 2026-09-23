@@ -1,49 +1,44 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { 
+  Button, 
+  Card, 
+  CardActions, 
+  CardContent, 
+  CardMedia, 
+  Typography 
+} from "@mui/material";
 import type { Product } from "../../app/models/product";
 
 type Props = {
-    product: Product;
+  product: Product;
 };
 
 export default function ProductCard({ product }: Props) {
-    const id = product.ID;
-    const name = product.Name && product.Name.trim() !== "" ? product.Name : "Chưa có tên";
-    const sku = product.Sku || "";
-    const numericPrice = Number(product.Price ?? 0);
-    
-    const formattedPrice = !isNaN(numericPrice) 
-        ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numericPrice) 
-        : "0 ₫";
-
-    return (
-        <Card
-            id={`product-${id}`}
-            elevation={3}
-            sx={{ 
-                width: 280,
-                borderRadius: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}
-        >
-            <CardMedia
-                sx={{ height: 240, backgroundSize: 'cover' }}
-                image={`https://picsum.photos/seed/${id || sku}/300/200`}
-                title={name}
-            />
-            <CardContent>
-                <Typography gutterBottom sx={{ color: 'text.primary' }} variant="subtitle2">
-                    {name}
-                </Typography>
-                <Typography variant="h6" sx={{ color: 'secondary.main' }}>
-                    {formattedPrice}
-                </Typography>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'space-between' }}>
-                <Button>Add to cart</Button>
-                <Button>View</Button>
-            </CardActions>
-        </Card>
-    );
+  return (
+    <Card sx={{ maxWidth: 345, borderRadius: 2, boxShadow: 3 }}>
+      <CardMedia
+        sx={{ height: 200, objectFit: "cover" }}
+        image={`https://picsum.photos/seed/${product.ID}/300/200`} // Dùng ID viết hoa
+        title={product.Name} // Dùng Name viết hoa
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+          {product.Name} {/* Dùng Name viết hoa */}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          SKU: {product.Sku} {/* Dùng Sku viết hoa */}
+        </Typography>
+        <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
+          {product.Price.toLocaleString()} đ {/* Dùng Price viết hoa */}
+        </Typography>
+      </CardContent>
+      <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
+        <Button size="small" variant="contained" color="primary">
+          Add to cart
+        </Button>
+        <Button size="small" variant="outlined" color="primary">
+          View
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }

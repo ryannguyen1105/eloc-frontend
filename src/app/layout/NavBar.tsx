@@ -11,8 +11,8 @@ export default function NavBar({darkMode, handleThemeChange}: Props) {
     <AppBar position="fixed">
         <Toolbar sx={{justifyContent: 'space-between'}} >
             <Typography variant="h6">Điện Máy Lộc</Typography>
-            <IconButton onClick={handleThemeChange} color="inherit">
-                {darkMode ? <DarkMode/> : <LightMode sx={{color: 'yellow'}} />}
+            <IconButton onClick={handleThemeChange} color="inherit" >
+                {darkMode ? <DarkMode /> : <LightMode sx={{color: 'yellow'}} />}
             </IconButton>
         </Toolbar>
     </AppBar>

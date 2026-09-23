@@ -1,43 +1,56 @@
 import { useEffect, useState } from "react";
-import type { Product } from "../models/product";
-import { Box, Pagination, Typography } from "@mui/material";
 import agent from "../../api/agent";
-import ProductList from "../../pages/products/ProductListPage";
+import type { Product } from "../models/product";
+import Catalog from "../../features/catalog/Catalog";
+import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import NavBar from "./NavBar";
 
-export default function App() {
+function App() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [page, setPage] = useState(1);
-  const pageSize = 5; // Phù hợp với ràng buộc min=5 của backend
 
-  useEffect(() => {
-    agent.Catalog.list(page, pageSize)
-      .then((data: Product[]) => {
-        setProducts(data);
-      })
-      .catch((error: unknown) => {
-        console.error("Lỗi tải danh sách sản phẩm:", error);
-      });
-  }, [page]);
+  const [darkMode, setDarkMode] = useState(true)
 
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+  const handleThemeChange = () => {
+    setDarkMode(!darkMode);
   };
 
+  const palleteType = darkMode ? "dark" : "light";
+  const darkTheme = createTheme({
+    palette: {
+      mode: palleteType,
+      background: {
+        default: palleteType === "light" ? "#eaeaea" : "#121212",
+      },
+    },
+  });
+  useEffect(() => {
+    agent.Catalog.list(1, 5)
+      .then((data) => {
+        console.log("data Go:", data);
+        setProducts(Array.isArray(data) ? data : [data]);
+      })
+      .catch((error) => console.error("error call API:", error));
+  }, []);
+
   return (
-    <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-      <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-        Danh sách mặt hàng
-      </Typography>
-
-      <ProductList products={products} />
-
-      <Pagination 
-        count={5} 
-        page={page} 
-        onChange={handlePageChange} 
-        color="primary" 
-        size="large"
-      />
-    </Box>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline/>
+      <NavBar darkMode={darkMode} handleThemeChange={handleThemeChange} />
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background: darkMode 
+          ? 'radial-gradient(circle, #1e3aBa, #111B27)'
+          : 'radial-gradient(circle, #baecf9, #f0f9ff)',
+          py: 6
+        }}
+      >
+        <Container maxWidth="xl" sx={{ mt: 14 }}>
+          <Catalog products={products} />
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
+
+export default App;
