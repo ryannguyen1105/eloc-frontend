@@ -5,7 +5,8 @@ export type Product = {
   slug: string;
   sku: string;
   price: number;
-  stock?: number;
+  stock: number;
+  pictureUrl: string;
   created_at?: string;
   updated_at?: string;
 };
